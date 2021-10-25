@@ -12,5 +12,9 @@ def top_up(deposit)
     @balance += deposit
   
 end
+
+def spend(amount)
+  @balance -= amount
+end
   
 end

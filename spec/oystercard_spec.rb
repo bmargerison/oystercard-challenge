@@ -18,5 +18,10 @@ describe Oystercard do
         expect{subject.top_up 1 }.to raise_error(RuntimeError)
     end
     
+    it 'deducts money when spent' do
+        subject.top_up(60)
+        subject.spend(50)
+        expect(subject.balance).to eq 10
+    end
     
 end
