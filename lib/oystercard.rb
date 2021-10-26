@@ -9,6 +9,7 @@ class Oystercard
   end
 
   def top_up(deposit)
+      
       raise "balance exceeded #{ACCOUNT_LIMIT}" if (@balance + deposit).to_f > ACCOUNT_LIMIT
       @balance += deposit
   end
@@ -22,6 +23,7 @@ class Oystercard
   end
 
   def touch_in
+    fail "insufficient funds" if @balance < 1
     @travelling = true
   end
 

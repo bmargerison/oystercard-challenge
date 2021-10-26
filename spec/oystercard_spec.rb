@@ -30,15 +30,22 @@ describe Oystercard do
 
     it 'touches in' do
         newcard = Oystercard.new
+        newcard.top_up(2)
         newcard.touch_in
         expect(newcard).to be_in_journey
     end
 
     it 'touches out' do
         newcard = Oystercard.new
+        newcard.top_up(2)
         newcard.touch_in
         newcard.touch_out
         expect(newcard).not_to be_in_journey
     end
+
+    it "raise error if touched_in with not enough funds" do 
+        newcard = Oystercard.new
+        expect{ newcard.touch_in }.to raise_error "insufficient funds"
+    end 
 
 end
