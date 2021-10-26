@@ -15,7 +15,7 @@ describe Oystercard do
     it 'throws error if card limit exceeded' do
         maximum_balance = Oystercard::ACCOUNT_LIMIT
         subject.top_up(maximum_balance)
-        expect{subject.top_up 1 }.to raise_error(RuntimeError)
+        expect{subject.top_up Oystercard::MINIMUM_FARE }.to raise_error(RuntimeError)
     end
     
     it 'deducts money when spent' do
@@ -47,5 +47,11 @@ describe Oystercard do
         newcard = Oystercard.new
         expect{ newcard.touch_in }.to raise_error "insufficient funds"
     end 
+
+    it "reduces balance by the journey cost amount" do
+        newcard = Oystercard.new
+        newcard.top_up(50)
+        expect{newcard.touch_out}.to change{newcard.balance}.by(-Oystercard::MINIMUM_FARE)
+    end
 
 end
