@@ -23,5 +23,22 @@ describe Oystercard do
         subject.spend(50)
         expect(subject.balance).to eq 10
     end
-    
+
+    it 'is initially not in a journey' do
+        expect(subject).not_to be_in_journey
+    end
+
+    it 'touches in' do
+        newcard = Oystercard.new
+        newcard.touch_in
+        expect(newcard).to be_in_journey
+    end
+
+    it 'touches out' do
+        newcard = Oystercard.new
+        newcard.touch_in
+        newcard.touch_out
+        expect(newcard).not_to be_in_journey
+    end
+
 end
